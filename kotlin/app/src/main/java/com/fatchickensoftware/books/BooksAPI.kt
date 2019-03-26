@@ -1,5 +1,6 @@
 package com.fatchickensoftware.books
 
+import android.content.Context
 import com.google.gson.Gson
 import okhttp3.*
 import java.io.IOException
@@ -31,7 +32,9 @@ data class Volumes(
 
 typealias SearchCallback = (Volumes?) -> Unit
 
-class BooksAPI(private val client: OkHttpClient) {
+class BooksAPI(private val client: OkHttpClient, private val context: Context) {
+
+    private val apiKey: String by lazy { context.getString(R.string.books_api_key)  }
 
     fun search(query: String, startIndex: Int, maxResults: Int, callback: SearchCallback) {
         val url = HttpUrl.Builder()
@@ -47,7 +50,7 @@ class BooksAPI(private val client: OkHttpClient) {
 
         val request = Request.Builder()
             .addHeader("accept", "application/json")
-            .addHeader("key", BOOKS_API_KEY)
+            .addHeader("key", apiKey)
             .url(url)
             .build()
 

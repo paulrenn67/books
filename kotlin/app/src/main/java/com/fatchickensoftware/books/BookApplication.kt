@@ -20,7 +20,7 @@ class BookApplication : Application() {
 
 val bookModule = module {
     single { OkHttpClient.Builder().cache(Cache(androidContext().cacheDir, HTTP_CACHE_SIZE)).build() }
-    single { BooksAPI(get()) }
+    single { BooksAPI(get(), get()) }
 }
 
 private const val HTTP_CACHE_SIZE: Long = 1024 * 1024 // 1MB

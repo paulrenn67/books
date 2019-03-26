@@ -26,6 +26,12 @@ android {
     dataBinding {
         enabled = true
     }
+
+    Properties properties = new Properties()
+    properties.load(project.rootProject.file("local.properties").newDataInputStream())
+    defaultConfig {
+        resValue "string", "books_api_key", properties.getProperty("books.api.key", "")
+    }
 }
 
 dependencies {
